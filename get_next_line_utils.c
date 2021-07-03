@@ -32,26 +32,25 @@ void		*ft_memmove(void *dst, const void *src, size_t len)
 	return (dst);
 }
 
-char		*join_str(char const *s1, char const *s2)
+char		*str_join(char const *s1, char const *s2)
 {
 	size_t	s1_len;
 	size_t	s2_len;
 	size_t	stot_len;
-	char	*rtn;
+	char	*ret;
 
 	if (!s1 && !s2)
 		return (0);
 	s1_len = ft_strlen((char *)s1);
 	s2_len = ft_strlen((char *)s2);
-	stot_len = s1_len + s2_len + 1;
-	rtn = malloc(sizeof(char) * stot_len);
-	if (!rtn)
+	ret = calloc((s1_len + s2_len + 1), sizeof(char));
+	if (!ret)
 		return (0);
-	ft_memmove(rtn, s1, s1_len);
-	ft_memmove(rtn + s1_len, s2, s2_len);
-	rtn[stot_len - 1] = '\0';
+	ft_memmove(ret, s1, s1_len);
+	ft_memmove(ret + s1_len, s2, s2_len);
+	ret[s1_len + s2_len] = '\0';
 	free((char *)s1);
-	return (rtn);
+	return (ret);
 }
 
 int			srchn(char *str)
@@ -70,29 +69,35 @@ int			srchn(char *str)
 	}
 	return (0);
 }
-char	*get_save(char *save)
+
+char	*get_reminder(char *reminder)
 {
-	char	*rtn;
+	char	*ret;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	if (!save)
+	if (!reminder)
 		return (0);
-	while (save[i] && save[i] != '\n')
+	while (reminder[i] && reminder[i] != '\n')
 		i++;
-	if (!save[i])
+	if (!reminder[i])
 	{
-		free(save);
+		free(reminder);
 		return (0);
 	}
-	if (!(rtn = malloc(sizeof(char) * ((ft_strlen(save) - i) + 1))))
+	ret = calloc(((ft_strlen(reminder) - i) + 1), sizeof(char));
+	if (!ret)
 		return (0);
 	i++;
-	while (save[i])
-		rtn[j++] = save[i++];
-	rtn[j] = '\0';
-	free(save);
-	return (rtn);
+	while (reminder[i])
+	{
+		ret[j] = reminder[i];
+		j++;
+		i++;
+	}
+	ret[j] = '\0';
+	free(reminder);
+	return (ret);
 }
