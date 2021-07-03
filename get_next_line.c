@@ -23,45 +23,40 @@ char	*get_line(char *str)
 	return (tmp);
 }
 
-int		get_next_line(int fd, char **line)
+int	ft_read(int fd, char **reminder, char *buff)
+{
+	int	bwr;
+
+	bwr = 1;
+	while (!srchn(*reminder) && bwr != 0)
+	{
+		bwr = read(fd, buff, BUFFER_SIZE);
+		if (bwr == -1)
+			return (-1);
+		buff[bwr] = '\0';
+		*reminder = str_join(*reminder, buff);
+	}
+	return (bwr);
+}
+
+int	get_next_line(int fd, char **line)
 {
 	static char		*reminder;
 	char			*buff;
 	int				bwr;
 
-	bwr = 1;
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
 	buff = calloc((BUFFER_SIZE + 1), sizeof(char));
 	if (!buff)
 		return (-1);
-	while (!srchn(reminder) && bwr != 0)
-	{
-		bwr = read(fd, buff, BUFFER_SIZE);
-		if (bwr == -1)
-		{
-			free(buff);
-			return (-1);
-		}
-		buff[bwr] = '\0';
-		reminder = str_join(reminder, buff);
-	}
+	bwr = ft_read(fd, &reminder, buff);
 	free(buff);
+	if (bwr == -1)
+		return (-1);
 	*line = get_line(reminder);
 	reminder = get_reminder(reminder);
-	if (bwr || ft_strlen(reminder) || ft_strlen(*line))
-		return (1);
-	return (0);
+	if (bwr == 0)
+		return (0);
+	return (1);
 }
-
-// int main()
-// {
-// 	char 	*line;
-	
-// 	int		fd;
-// 	fd = open("text.txt", O_RDONLY);
-// 	while (get_next_line(fd, &line))
-// 	{
-// 		printf("%s\n", line);
-// 	}
-// }

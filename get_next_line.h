@@ -5,11 +5,9 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
-# include <stdio.h>
-
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 42
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 char				*str_join(const char *s1, const char *s2);
 char				*get_line(char *str);
