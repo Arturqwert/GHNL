@@ -1,8 +1,8 @@
 #include "get_next_line.h"
 
-size_t		ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	if (!s)
@@ -12,10 +12,10 @@ size_t		ft_strlen(const char *s)
 	return (i);
 }
 
-void		*ft_memmove(void *dst, const void *src, size_t len)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char *d;
-	char *s;
+	char	*d;
+	char	*s;
 
 	d = (char *)dst;
 	s = (char *)src;
@@ -32,11 +32,10 @@ void		*ft_memmove(void *dst, const void *src, size_t len)
 	return (dst);
 }
 
-char		*str_join(char const *s1, char const *s2)
+char	*str_join(char const *s1, char const *s2)
 {
 	size_t	s1_len;
 	size_t	s2_len;
-	size_t	stot_len;
 	char	*ret;
 
 	if (!s1 && !s2)
@@ -53,9 +52,9 @@ char		*str_join(char const *s1, char const *s2)
 	return (ret);
 }
 
-int			srchn(char *str)
+int	srchn(char *str)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	if (str)
@@ -92,11 +91,7 @@ char	*get_reminder(char *reminder)
 		return (0);
 	i++;
 	while (reminder[i])
-	{
-		ret[j] = reminder[i];
-		j++;
-		i++;
-	}
+		ret[j++] = reminder[i++];
 	ret[j] = '\0';
 	free(reminder);
 	return (ret);
