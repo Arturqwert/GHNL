@@ -5,8 +5,9 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
-//#define BUFFER_SIZE 48
-#define BUFF_SIZE 48
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
 
 int					get_next_line(int fd, char **line);
 int					srchn(char *str);
